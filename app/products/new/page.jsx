@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const NewProduct = () => {
@@ -14,11 +15,22 @@ const NewProduct = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [categories, setCategories] = useState([]);
 
+  const router = useRouter();
+
+ 
+
   const createProduct = async (e) => {
     e.preventDefault();
     const data = { title, description, price };
     await axios.post("/api/products", data);
+    setGoToProducts(true);
+
+    router.push('/products')
   };
+
+  if (goToProducts) {
+    router.push('/products');
+  }
 
   return (
     <>
