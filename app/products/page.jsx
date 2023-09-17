@@ -9,7 +9,7 @@ const Products = () => {
 
   return (
     <>
-     <Link className="btn-primary " href={'/products/new'}>Add new product</Link>
+     <Link className="btn-primary" href={'/products/new'}>Add new product</Link>
       <table className="basic mt-2">
         <thead>
           <tr>
