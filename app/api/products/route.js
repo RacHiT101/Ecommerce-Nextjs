@@ -16,10 +16,44 @@ export async function POST(req) {
   });
   return NextResponse.json({ productDoc, success: true });
 }
+
+
+export async function PUT(req) {
+  mongoose.connect(process.env.MONGODB_URI);
+
+  const { title, description, price, _id } = await req.json();
+  // console.log(_id);
+  await Product.updateOne({ _id }, { title, description, price, _id });
+
+  return NextResponse.json({ success: true });
+}
+
+
 export async function GET(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
-  const data = await Product.find();
+  // console.log(req.searchParams.id);
+  const { searchParams } = new URL(req.url);
+  const param = searchParams.get("id");
+  // console.log(param);
 
-  return NextResponse.json({data});
+  let data;
+
+  if (param) {
+    data = await Product.findById(param);
+  } else {
+    data = await Product.find();
+  }
+
+  return NextResponse.json(data);
+}
+export async function DELETE(req) {
+  mongoose.connect(process.env.MONGODB_URI);
+
+  const { searchParams } = new URL(req.url);
+  const param = searchParams.get("id");
+
+await Product.findByIdAndDelete(param);
+
+  return NextResponse.json({ success: true });
 }

@@ -9,8 +9,8 @@ const Products = () => {
 
   const productsData = async () => {
     const res = await axios.get("/api/products");
-    console.log(res.data.data);
-   setProducts(res.data.data);
+    console.log(res.data);
+   setProducts(res.data);
   };
 
   useEffect(() => {

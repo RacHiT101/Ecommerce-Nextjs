@@ -4,37 +4,51 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const NewProduct = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [productProperties, setProductProperties] = useState({});
-  const [price, setPrice] = useState("");
-  const [images, setImages] = useState([]);
+const NewProduct = ({
+  _id,
+  title: existingTitle,
+  description: existingDescription,
+  price: existingPrice,
+  images: existingImages,
+  category: assignedCategory,
+  properties: assignedProperties,
+}) => {
+  const [title, setTitle] = useState(existingTitle || "");
+  const [description, setDescription] = useState(existingDescription || "");
+  const [category, setCategory] = useState(assignedCategory || "");
+  const [productProperties, setProductProperties] = useState(
+    assignedProperties || {}
+  );
+  const [price, setPrice] = useState(existingPrice || "");
+  const [images, setImages] = useState(existingImages || []);
   const [goToProducts, setGoToProducts] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [categories, setCategories] = useState([]);
 
   const router = useRouter();
 
- 
+  // console.log(_id);
 
-  const createProduct = async (e) => {
+  const saveProduct = async (e) => {
     e.preventDefault();
     const data = { title, description, price };
-    await axios.post("/api/products", data);
-    setGoToProducts(true);
 
-    router.push('/products')
+    if (_id) {
+      await axios.put("/api/products", { ...data, _id });
+      setGoToProducts(true);
+    } else {
+      await axios.post("/api/products", data);
+      setGoToProducts(true);
+    }
   };
 
   if (goToProducts) {
-    router.push('/products');
+    router.push("/products");
   }
 
   return (
     <>
-      <form onSubmit={createProduct}>
+      <form onSubmit={saveProduct}>
         <label>Product name</label>
         <input
           type="text"
