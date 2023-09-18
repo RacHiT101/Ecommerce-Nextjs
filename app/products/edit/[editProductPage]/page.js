@@ -21,7 +21,7 @@ const EditProductPage = ({ params }) => {
 
   console.log(params.editProductPage);
 
-  return <div> <h1>Edit product</h1>
+  return <div> <h1 className="mb-4">Edit product</h1>
   {productInfo && (
     <NewProduct {...productInfo} />
   )}</div>;

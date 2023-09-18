@@ -7,16 +7,16 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
-  const { title, description, price } = await req.json();
+  const { title, description, price, images } = await req.json();
 
   const productDoc = await Product.create({
     title,
     description,
     price,
+    images
   });
   return NextResponse.json({ productDoc, success: true });
 }
-
 
 export async function PUT(req) {
   mongoose.connect(process.env.MONGODB_URI);
@@ -27,7 +27,6 @@ export async function PUT(req) {
 
   return NextResponse.json({ success: true });
 }
-
 
 export async function GET(req) {
   mongoose.connect(process.env.MONGODB_URI);
@@ -47,6 +46,7 @@ export async function GET(req) {
 
   return NextResponse.json(data);
 }
+
 export async function DELETE(req) {
   mongoose.connect(process.env.MONGODB_URI);
 

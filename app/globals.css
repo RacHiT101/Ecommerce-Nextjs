@@ -21,20 +21,20 @@ select:focus {
   border: 1px solid blue;
 }
 h1 {
-  color: #718096;
+  color: blue;
   font-size: 16px;
 }
 label {
-  color: #718096;
+  color: blue;
   font-size: 16px;
 }
 .btn-primary {
-  background-color: blue;
+  background-color: darkblue;
   color: white;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
   border-radius: 0.125rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }

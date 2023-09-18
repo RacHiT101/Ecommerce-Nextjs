@@ -16,7 +16,7 @@ const Nav = () => {
 
   return (
     <aside className="text-white p-4 pr-0">
-      <Link href={"/"} className="flex items-center gap-1 mb-4 mr-4">
+      <Link href={"/"} className="flex items-center gap-1 mb-4 mr-12">
         <BiSolidStoreAlt />
         <span>Ecommerce Admin</span>
       </Link>
