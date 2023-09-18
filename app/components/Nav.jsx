@@ -24,13 +24,16 @@ const Nav = () => {
         <Link href={"/"} className={pathname === '/' ? activeLink : inactiveLink}>
           <MdSpaceDashboard /> Dashboard
         </Link>
-        <Link href={"/products"} className={pathname === '/products' ? activeLink : inactiveLink}>
+        <Link href={"/products"} className={pathname.includes('/products')  ? activeLink : inactiveLink}>
           <BsBoxSeam /> Products
         </Link>
-        <Link href={"/orders"} className={pathname === '/orders' ? activeLink : inactiveLink}>
+        <Link href={"/categories"} className={pathname.includes('/categories') ? activeLink : inactiveLink}>
+          <BsBoxSeam /> Categories
+        </Link>
+        <Link href={"/orders"} className={pathname.includes('/orders') ? activeLink : inactiveLink}>
           <BsListCheck /> Orders
         </Link>
-        <Link href={"/settings"} className={pathname === '/settings' ? activeLink : inactiveLink}>
+        <Link href={"/settings"} className={pathname.includes('/settings') ? activeLink : inactiveLink}>
           <AiOutlineSetting /> Settings
         </Link>
       </nav>
