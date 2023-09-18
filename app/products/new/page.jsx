@@ -1,9 +1,11 @@
 "use client";
 
+import Spinner from "@/app/components/Spinner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BsUpload } from "react-icons/bs";
+import { ReactSortable } from "react-sortablejs";
 
 const NewProduct = ({
   _id,
@@ -50,6 +52,7 @@ const NewProduct = ({
   const uploadImages = async (e) => {
     const files = e.target.files;
 
+    setIsUploading(true);
     const data = new FormData();
     for (const file of files) {
       data.append("file", file);
@@ -77,9 +80,14 @@ const NewProduct = ({
     } catch (error) {
       console.error("Error uploading images: " + error.message);
     }
+    setIsUploading(false);
   };
 
   console.log(images);
+
+  function updateImagesOrder(images) {
+    setImages(images);
+  }
 
   return (
     <form onSubmit={saveProduct} className="flex flex-col gap-2">
@@ -91,21 +99,36 @@ const NewProduct = ({
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <label>Photos</label>
-      <div className="mb-2 flex flex-wrap gap-2">
-        {!!images?.length &&
-          images.map((url) => (
-            <div
-              key={url}
-              className="h-24 mr-4 flex shadow-sm rounded-sm border border-gray-200"
-            >
-              <img src={url} alt="" className="flex rounded-lg" />
-            </div>
-          ))}
+      <div className="mb-2 flex flex-wrap gap-1">
+        <ReactSortable
+          list={images}
+          className="flex flex-wrap gap-1"
+          setList={updateImagesOrder}
+        >
+          {!!images?.length &&
+            images.map((url) => (
+              <div
+                key={url}
+                className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200"
+              >
+                <img src={url} alt="" className="flex rounded-lg" />
+              </div>
+            ))}
+        </ReactSortable>
+        {isUploading && (
+          <div className="h-24 w-32 justify-center flex items-center">
+            <Spinner />
+          </div>
+        )}
         <label className="w-24 h-24 cursor-pointer text-primary rounded-sm text-gray-500 bg-gray-200 shadow-sm border-primary border flex justify-center items-center gap-2">
           <BsUpload /> Upload
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
-        {!images?.length && <div className="flex items-center ml-4">No Photos in this Product</div>}
+        {!images?.length && (
+          <div className="flex items-center ml-4">
+            No Photos in this Product
+          </div>
+        )}
       </div>
       <label>Description</label>
       <textarea

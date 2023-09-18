@@ -21,9 +21,9 @@ export async function POST(req) {
 export async function PUT(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
-  const { title, description, price, _id } = await req.json();
+  const { title, description, price, images, _id } = await req.json();
   // console.log(_id);
-  await Product.updateOne({ _id }, { title, description, price, _id });
+  await Product.updateOne({ _id }, { title, images, description, price, _id });
 
   return NextResponse.json({ success: true });
 }
