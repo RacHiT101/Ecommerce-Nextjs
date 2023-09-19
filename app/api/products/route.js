@@ -6,14 +6,17 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   mongoose.connect(process.env.MONGODB_URI);
+  await isAdminRequest();
 
-  const { title, description, price, images } = await req.json();
+  const { title, description, price, images, category , productProperties} = await req.json();
 
   const productDoc = await Product.create({
     title,
     description,
     price,
-    images
+    images,
+    category,
+    properties: productProperties
   });
   return NextResponse.json({ productDoc, success: true });
 }
@@ -21,9 +24,9 @@ export async function POST(req) {
 export async function PUT(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
-  const { title, description, price, images, _id } = await req.json();
+  const { title, description, price, images, category, productProperties, _id } = await req.json();
   // console.log(_id);
-  await Product.updateOne({ _id }, { title, images, description, price, _id });
+  await Product.updateOne({ _id }, { title, images, description, price, category, properties: productProperties, _id });
 
   return NextResponse.json({ success: true });
 }

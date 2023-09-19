@@ -1,16 +1,22 @@
 import { Categories } from "@/models/Categories";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions, isAdminRequest } from "../auth/[...nextauth]/route";
+import { getSession } from "next-auth/react";
 
 export async function POST(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
-  const { name, parentCategory } = await req.json();
-//   console.log(parentCategory);
+  await isAdminRequest();
+
+  const { name, parentCategory, properties } = await req.json();
+  //   console.log(parentCategory);
 
   const CategoriesDoc = await Categories.create({
     name,
     parent: parentCategory || undefined,
+    properties,
   });
   return NextResponse.json({ CategoriesDoc, success: true });
 }
@@ -18,11 +24,11 @@ export async function POST(req) {
 export async function PUT(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
-  const { name, parentCategory, _id } = await req.json();
+  const { name, parentCategory, properties, _id } = await req.json();
   console.log(_id);
   await Categories.updateOne(
     { _id },
-    { name, parent: parentCategory || undefined, _id, }
+    { name, parent: parentCategory || undefined, _id, properties }
   );
 
   return NextResponse.json({ success: true });
