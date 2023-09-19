@@ -29,7 +29,7 @@ const handler = NextAuth(authOptions);
 
 export async function isAdminRequest() {
   const session = await getServerSession(authOptions);
-  console.log(session);
+  // console.log(session);
   if (!adminEmails.includes(session?.user?.email)) {
     res.status(401);
     res.end();

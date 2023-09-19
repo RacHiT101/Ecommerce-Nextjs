@@ -9,7 +9,7 @@ const Products = () => {
 
   const productsData = async () => {
     const res = await axios.get("/api/products");
-    console.log(res.data);
+    // console.log(res.data);
    setProducts(res.data);
   };
 

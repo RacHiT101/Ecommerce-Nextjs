@@ -25,7 +25,7 @@ export async function PUT(req) {
   mongoose.connect(process.env.MONGODB_URI);
 
   const { name, parentCategory, properties, _id } = await req.json();
-  console.log(_id);
+  // console.log(_id);
   await Categories.updateOne(
     { _id },
     { name, parent: parentCategory || undefined, _id, properties }

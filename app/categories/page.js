@@ -38,9 +38,9 @@ const Categories = ({ swal }) => {
     } else {
       try {
         const res = await axios.post("/api/categories", data);
-        console.log(res);
+        // console.log(res);
       } catch (err) {
-        console.log("axios: ", err);
+        // console.log("axios: ", err);
       }
     }
     setName("");
@@ -62,7 +62,7 @@ const Categories = ({ swal }) => {
     );
   };
 
-  console.log(properties);
+  // console.log(properties);
 
   const deleteCategory = (category, event) => {
     event.preventDefault();
@@ -92,7 +92,7 @@ const Categories = ({ swal }) => {
     });
   };
 
-  console.log(properties);
+  // console.log(properties);
 
   const handlePropertyNameChange = (index, property, newName) => {
     setProperties((prev) => {

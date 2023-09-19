@@ -3,6 +3,7 @@ import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
+import { isAdminRequest } from "../auth/[...nextauth]/route";
 
 export async function POST(req) {
   mongoose.connect(process.env.MONGODB_URI);

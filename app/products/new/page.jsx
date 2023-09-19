@@ -32,7 +32,7 @@ const NewProduct = ({
 
   const getCategories = async () => {
     const res = await axios.get("/api/categories");
-    console.log(res);
+    // console.log(res);
     setCategories(res.data);
   };
 
@@ -80,7 +80,7 @@ const NewProduct = ({
       );
       if (response.ok) {
         const jsonData = await response.json();
-        console.log(jsonData);
+        // console.log(jsonData);
         setImages((oldImages) => {
           return [...oldImages, jsonData.url];
         });
@@ -93,7 +93,7 @@ const NewProduct = ({
     setIsUploading(false);
   };
 
-  console.log(images);
+  // console.log(images);
 
   function updateImagesOrder(images) {
     setImages(images);
@@ -110,7 +110,7 @@ const NewProduct = ({
   const propertiesToFill = [];
   if (categories.length > 0 && category) {
     let catInfo = categories.find(({_id}) => _id === category);
-    console.log(catInfo);
+    // console.log(catInfo);
     propertiesToFill.push(...catInfo.properties);
     while(catInfo?.parent?._id) {
       const parentCat = categories.find(({_id}) => _id === catInfo?.parent?._id);
@@ -119,7 +119,7 @@ const NewProduct = ({
     }
   }
 
-  console.log(propertiesToFill);
+  // console.log(propertiesToFill);
 
   return (
     <form onSubmit={saveProduct} className="flex flex-col gap-2">
