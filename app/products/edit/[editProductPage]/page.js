@@ -10,7 +10,7 @@ const EditProductPage = ({ params }) => {
 
   const getProduct = async () => {
     const res = await axios.get("/api/products?id=" + params.editProductPage);
-    // console.log(res.data);
+    console.log(res.data);
     setProductInfo(res.data)
   };
 
